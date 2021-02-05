@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import { StylesProvider, createGenerateClassName, jssPreset } from '@material-ui/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
 import './App.css';
+import createTheme from './theme';
+import { CssBaseline, Typography } from '@material-ui/core';
+import Scaffold from './Scaffold';
 
-function App() {
+const generateClassName = createGenerateClassName();
+
+
+const App = ({ direction }) => {
+  const theme = createTheme(direction);
+
+  const jss = direction === 'rtl' ? { jss: create({ plugins: [...jssPreset().plugins, rtl()] }) } : undefined;
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StylesProvider {...jss} generateClassName={generateClassName}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <Scaffold />
+      </MuiThemeProvider>
+    </StylesProvider>
   );
 }
 
