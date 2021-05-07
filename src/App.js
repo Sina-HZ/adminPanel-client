@@ -1,3 +1,4 @@
+import React from 'react';
 import { StylesProvider, createGenerateClassName, jssPreset } from '@material-ui/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { create } from 'jss';
@@ -5,6 +6,7 @@ import rtl from 'jss-rtl';
 import './App.css';
 import createTheme from './theme';
 import { CssBaseline, Typography } from '@material-ui/core';
+import { SnackbarProvider } from 'notistack';
 import Scaffold from './Scaffold';
 
 const generateClassName = createGenerateClassName();
@@ -20,7 +22,9 @@ const App = ({ direction }) => {
     <StylesProvider {...jss} generateClassName={generateClassName}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <Scaffold />
+        <SnackbarProvider maxSnack={3}>
+          <Scaffold />
+        </SnackbarProvider>
       </MuiThemeProvider>
     </StylesProvider>
   );

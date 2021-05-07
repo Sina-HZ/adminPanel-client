@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { Box, Typography } from "@material-ui/core";
+import React,{ lazy, Suspense, useEffect, useState } from "react";
+import { Box } from "@material-ui/core";
 import { Redirect, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import DesktopScaffold from "./components/Desktop";
 import PageLoading from "./components/PageLoading";
@@ -64,7 +64,7 @@ const Scaffold = () => {
               </MenuStateProvider>}
               redirectTo='/login'
             />
-            <AppContent />
+            {/* <AppContent /> */}
           </Switch>
         </Suspense>
       </Box>

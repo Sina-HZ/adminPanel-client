@@ -1,29 +1,38 @@
-import { Box, IconButton, makeStyles, Paper, Typography, useTheme } from "@material-ui/core";
+import React from 'react';
+import { Box, IconButton, makeStyles, Paper, Typography, useTheme, Chip } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
 import ApiRoutes from "../utils/apiRoutes";
 import moment from 'moment-jalaali';
+
 
 const useStyle = makeStyles(theme => ({
     root: {
         borderRadius: theme.shape.borderRadius,
         border: '1px solid',
         borderColor: theme.palette.grey[300],
+        backgroundColor: '#fbfbfb',
         padding: theme.spacing(2),
         display: 'flex',
-        width: '45%',
+        width: '100%',
         maxHeight: 200,
-        margin: 8,
         position: 'relative'
     },
     imageWrap: {
         flex: 1,
         marginRight: theme.spacing(2),
         display: 'flex',
-        height: 'fit-content',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        borderRadius: theme.shape.borderRadius
+        borderRadius: theme.shape.borderRadius,
+        height: '100%',
+        border: '1px solid',
+        borderColor: theme.palette.grey[300]
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
     },
     infoWrap: {
         flex: 2
@@ -40,31 +49,43 @@ const useStyle = makeStyles(theme => ({
     },
     actionItem: {
         marginLeft: theme.spacing(1)
-    }
+    },
+    chip: ({ status }) => ({
+        borderRadius: theme.spacing(1.5),
+        backgroundColor: status === 'active' ? theme.palette.success.light : theme.palette.error.light,
+        color: status === 'active' ? theme.palette.success.main : theme.palette.error.main,
+        padding: theme.spacing(0.3, 1),
+        minWidth: 70,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    })
 }))
-const SliderCard = ({ sliderItem}) => {
-    const classes = useStyle();
+const SliderCard = ({ sliderItem }) => {
+    const classes = useStyle({ status: sliderItem.status });
     const theme = useTheme();
 
     return (
-        <Paper elevation={2} className={classes.root}>
+        <Paper elevation={0} className={classes.root}>
             <Box className={classes.imageWrap}>
-                <img src={ApiRoutes.baseUrl + ApiRoutes.file + sliderItem.image.id} width='100%' />
+                <img src={ApiRoutes.baseUrl + '/file/' + sliderItem.image.id} className={classes.image} />
             </Box>
             <Box className={classes.infoWrap}>
                 <Typography variant='body1' style={{ fontWeight: 500 }}>{sliderItem.name}</Typography>
 
                 <Box display='flex' mt={1}>
                     <Typography variant='body2' className={classes.createdAt} color='textSecondary'>بارگذاری شده در: </Typography>
-                    <Typography variant='body2'>{moment(sliderItem.created,'YYYY-MM-DDTHH:mm:ss.sssZ').format('jYYYY/jMM/jDD')}</Typography>
+                    <Typography variant='body2'>{moment(sliderItem.created, 'YYYY-MM-DDTHH:mm:ss.sssZ').format('jYYYY/jMM/jDD')}</Typography>
                 </Box>
                 <Box display='flex' mt={1}>
                     <Typography variant='body2' className={classes.createdAt} color='textSecondary'>توسط: </Typography>
                     <Typography variant='body2'>{sliderItem.createdBy.username}</Typography>
                 </Box>
-                <Box display='flex' mt={1}>
+                <Box display='flex' mt={1} alignItems='center'>
                     <Typography variant='body2' className={classes.createdAt} color='textSecondary'>وضعیت: </Typography>
-                    <Typography variant='body2'>فعال</Typography>
+                    <Box className={classes.chip} >
+                        <Typography variant='body2'>{sliderItem.status === 'active' ? 'فعال' : 'غیرفعال'}</Typography>
+                    </Box>
                 </Box>
                 <Box className={classes.actionWrap}>
                     <IconButton color='primary'>
@@ -75,7 +96,7 @@ const SliderCard = ({ sliderItem}) => {
                     </IconButton>
                 </Box>
             </Box>
-        </Paper>
+        </Paper >
     )
 }
 

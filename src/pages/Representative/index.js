@@ -1,7 +1,10 @@
-import { Box, createStyles, Divider, makeStyles, Paper, Typography } from "@material-ui/core"
-import { useContext, useEffect } from "react";
+import { Box, Button, createStyles, Divider, makeStyles, Paper, Typography } from "@material-ui/core"
+import { AddCircle, ClearAllOutlined } from "@material-ui/icons";
+import React, { useContext, useEffect, useState } from "react";
 import { MenuEnum, menuStore } from "../../states/MenuStateProvider";
+import AddNew from "./AddNew";
 import TableList from "./TableList";
+import MainContentPaper from "../../components/MainContentPaper"
 
 const useStyles = makeStyles((theme) => createStyles({
     root: {
@@ -32,42 +35,53 @@ const useStyles = makeStyles((theme) => createStyles({
             margin: theme.spacing(0)
         }
     },
+    addBtn: {
+        boxShadow: 'unset',
+        border: `solid 1px ${theme.palette.grey[300]}`,
+        padding: theme.spacing(1, 3),
+        color: '#fff',
+        '&:hover': {
+            boxShadow: 'unset',
+        }
+    }
 }))
 
 const Representative = () => {
     const classes = useStyles();
     const { menuDispatch } = useContext(menuStore);
+    const [addNew, setAddNew] = useState(false);
 
     useEffect(() => {
         menuDispatch && menuDispatch({ type: 'ChangeActiveMenu', newMenu: MenuEnum.Representative });
     }, [menuDispatch])
 
-    return (
-        <Box display='flex' justifyContent='center' >
-            <Box className={classes.root}>
-                <Paper elevation={2} className={classes.balance}>
-                    <Box display='flex' alignItems='center' justifyContent='space-between' mb={3}>
-                        <Box>
-                            <Typography variant='h6'>امور نمایندگان</Typography>
-                            <Typography variant='body1' color='textSecondary'>در این بخش می‌توانید اسلایدرهای سایت را مدیریت کنید.</Typography>
-                        </Box>
+    const togglePage = () => {
+        setAddNew(prev => !prev)
+    }
 
-                        {/* <Button
-                            startIcon={isNewSlider ? <ClearAllOutlined color='primary' fontSize='small' /> : <AddCircle color='primary' fontSize='small' />}
-                            onClick={toggleSlider}
-                            className={classes.addBtn}
-                            color='primary'
-                        >
-                            <Typography variant='body1' component='p' color='secondary'>{isNewSlider ? 'لیست اسلایدر' : 'افزودن اسلایدر'}</Typography>
-                        </Button> */}
-                    </Box>
-                    <Divider />
-                    <Box mt={2}>
-                        <TableList isFetched={true} />
-                    </Box>
-                </Paper>
+    return (
+        <MainContentPaper>
+            <Box display='flex' alignItems='center' justifyContent='space-between' mb={3}>
+                <Box>
+                    <Typography variant='h6'>امور نمایندگان</Typography>
+                    <Typography variant='body1' color='textSecondary'>در این بخش می‌توانید اسلایدرهای سایت را مدیریت کنید.</Typography>
+                </Box>
+
+                <Button
+                    startIcon={addNew ? <ClearAllOutlined fontSize='small' /> : <AddCircle fontSize='small' />}
+                    onClick={togglePage}
+                    className={classes.addBtn}
+                    color='primary'
+                    variant='contained'
+                >
+                    <Typography variant='body1' component='p'>{addNew ? 'لیست نماینده‌ها' : 'افزودن نماینده'}</Typography>
+                </Button>
             </Box>
-        </Box>
+            <Divider />
+            <Box mt={2}>
+                {addNew ? <AddNew /> : <TableList />}
+            </Box>
+        </MainContentPaper>
     )
 }
 

@@ -1,9 +1,11 @@
 import { AppBar, createStyles, Drawer, makeStyles } from "@material-ui/core";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import clsx from 'clsx';
 import { menuStore } from "../states/MenuStateProvider";
 import { drawerWidth } from "../utils/generalConst";
 import DrawerContent from "./DrawerContent";
+import { useSwipeable } from "react-swipeable";
+
 
 
 const useDesktopScaffoldStyles = makeStyles(theme => createStyles({
@@ -11,7 +13,8 @@ const useDesktopScaffoldStyles = makeStyles(theme => createStyles({
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     height: 245,
-    backgroundImage: `linear-gradient(278deg, ${theme.palette.secondary.light} 0%, ${theme.palette.secondary.dark} 100%)`,
+    // backgroundImage: `linear-gradient(278deg, ${theme.palette.secondary.light} 0%, ${theme.palette.secondary.dark} 100%)`,
+    backgroundColor: 'inherit',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       marginLeft: 0,
@@ -111,8 +114,9 @@ const useDesktopScaffoldStyles = makeStyles(theme => createStyles({
     marginLeft: drawerWidth,
     padding: 0,
     position: 'relative',
-    minHeight: '100vh',
+    minHeight: 'calc(100vh - 245px)',
     zIndex: 1,
+    
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       marginLeft: 0,
@@ -158,6 +162,17 @@ const DesktopScaffold = ({children}) => {
   const { menuState, menuDispatch } = useContext(menuStore);
   const sideMenu = !menuState.collapsed;
 
+  const swipHandlers = useSwipeable({
+    onSwipedLeft: () => menuDispatch && menuDispatch({ type: 'Collapse', collapsed: false }),
+    onSwipedRight: () => menuDispatch && menuDispatch({ type: 'Collapse', collapsed: true })
+  });
+
+  const myRef = React.useRef();
+
+  const refPassthrough = (el) => {
+    swipHandlers.ref(el);
+    myRef.current = el;
+  }
 
   return (
     <>
@@ -190,8 +205,8 @@ const DesktopScaffold = ({children}) => {
         <DrawerContent />
       </Drawer>
       <div
-        // {...swipHandlers}
-        // ref={refPassthrough}
+        {...swipHandlers}
+        ref={refPassthrough}
         className={clsx(
           classes.content, sideMenu && classes.open,
           !sideMenu && classes.closed,

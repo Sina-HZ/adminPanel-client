@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, InputAdornment, makeStyles, TextField, Typography, useTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -8,10 +9,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export const FileAttachTextField = ({ accept, inputOnChange, ...props }) => {
+export const FileAttachTextField = ({ accept, inputOnChange, InputProps, ...props }) => {
     const theme = useTheme();
     const classes = useStyles()
-
     return (
         <>
             <input
@@ -38,9 +38,11 @@ export const FileAttachTextField = ({ accept, inputOnChange, ...props }) => {
                     </InputAdornment>,
                     style: { padding: theme.spacing(0, 0.7) },
                     // readOnly: true
+                    ...InputProps
                 }}
                 {...props}
             />
         </>
     )
 }
+

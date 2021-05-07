@@ -13,8 +13,8 @@ export const removeUserAuthorization = async () => {
 
 export const setUserAuthorization = async (token) => {
   if (token) {
-    AxiosInstance.defaults.headers.common['Authorization'] = `${token}`;
-    localStorage.setItem('Authorization', token)
+    AxiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    localStorage.setItem('Authorization', `Bearer ${token}`)
   }
 };
 

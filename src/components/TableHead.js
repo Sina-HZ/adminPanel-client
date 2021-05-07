@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       width: '100%',
-      backgroundColor: '#f8f9fa'
+      backgroundColor: '#fbfbfb'
     },
     cell: {
       color: theme.palette.text.secondary

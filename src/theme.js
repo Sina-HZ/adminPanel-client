@@ -112,7 +112,7 @@ export default createTheme;
 
 export const COLORS = {
   border: '#e6e6e6',
-  background: '#eaecef',
+  background: '#f5f5f5',
   divider: '#eaecef',
   primary: '#2699fb',
   brandLight: '#2699fb',

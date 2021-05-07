@@ -14,6 +14,9 @@ import {
   Avatar,
 } from '@material-ui/core';
 import { menuStore, MenuEnum } from '../states/MenuStateProvider';
+import { observer } from 'mobx-react-lite';
+import { toJS } from 'mobx';
+import Account from '../states/Account';
 
 const useOnMenuStyles = makeStyles((theme) => createStyles({
   root: {
@@ -70,24 +73,18 @@ const useOnMenuStyles = makeStyles((theme) => createStyles({
   },
 }));
 
-export const AccountDetailOnMenu = () => {
-    const classes = useOnMenuStyles();
-    // const authStore = useContext(AuthStoreContext);
-    const { menuState, menuDispatch } = useContext(menuStore);
-  
-    //TODO we have to get it from authStore.user and authStore.getOptionData
-    const id = '589775';
-    const name = 'محمد سعیدی';
-    const membership = 'عضویت طلایی';
-  
-    const sideMenu = !menuState.collapsed;
-  
-    return (
-      <div className={classes.root}>
-        <Avatar alt="account photo" className={clsx(classes.avatar, menuState.collapsed && classes.avatarCollapsed)} ></Avatar>
-        <Typography variant="body2" component="div" className={clsx(classes.id, classes.hidable, menuState.collapsed && classes.hide)}>{`FCP.${id}`}</Typography>
-        <Typography variant="subtitle1" component="div" className={clsx(classes.name, classes.hidable, menuState.collapsed && classes.hide)}>{name}</Typography>
-        {/* <Typography variant="caption" component="div" className={clsx(classes.membership, classes.hidable, menuState.collapsed && classes.hide)}>{membership}</Typography> */}
-      </div>
-    );
-  }
+export const AccountDetailOnMenu = observer(() => {
+  const classes = useOnMenuStyles();
+  const { menuState, menuDispatch } = useContext(menuStore);
+
+  const sideMenu = !menuState.collapsed;
+
+  return (
+    <div className={classes.root}>
+      <Avatar alt="account photo" className={clsx(classes.avatar, menuState.collapsed && classes.avatarCollapsed)} ></Avatar>
+      <Typography variant="body2" component="div" className={clsx(classes.id, classes.hidable, menuState.collapsed && classes.hide)}>{`FCP.${toJS(Account).role}`}</Typography>
+      <Typography variant="subtitle1" component="div" className={clsx(classes.name, classes.hidable, menuState.collapsed && classes.hide)}>{toJS(Account).username}</Typography>
+      <Typography variant="caption" component="div" className={clsx(classes.membership, classes.hidable, menuState.collapsed && classes.hide)}>{toJS(Account).email}</Typography>
+    </div>
+  );
+})

@@ -4,7 +4,8 @@ import React, { createContext, useReducer } from 'react';
 export const MenuEnum = Object.freeze({
     "Home": 0,
     "Slider": 1,
-    "Representative": 2
+    "Representative": 2,
+    "Setting": 3
 })
 
 const initialState = {
@@ -32,8 +33,8 @@ const MenuStateProvider = ({ children }) => {
                 }
             default:
                 throw new Error();
-        };
-    }, initialState);
+        }
+    }, initialState)
 
     return <Provider value={{ menuState: state, menuDispatch: dispatch }}>{children}</Provider>;
 };

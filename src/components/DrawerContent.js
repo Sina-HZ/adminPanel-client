@@ -1,6 +1,6 @@
 import { createStyles, IconButton, List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
-import { AspectRatio, Dashboard, Menu, People } from "@material-ui/icons";
-import { useContext } from "react";
+import { AspectRatio, Dashboard, Menu, People, SettingsRounded } from "@material-ui/icons";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import clsx from 'clsx';
 import { MenuEnum, menuStore } from "../states/MenuStateProvider";
@@ -54,7 +54,8 @@ const DrawerContent = () => {
             <List>
                 <MenuItem collapsed={!sideMenu} href='/' selected={menuState.activeMenu === MenuEnum.Home} Icon={Dashboard} text={'داشبورد'} />
                 <MenuItem collapsed={!sideMenu} href='/slider' selected={menuState.activeMenu === MenuEnum.Slider} Icon={AspectRatio} text={'تنظیمات اسلایدر'} />
-                <MenuItem collapsed={!sideMenu} href='/representative' selected={menuState.activeMenu === MenuEnum.Representative} Icon={People} text={'امور نمایندگان'} />
+                <MenuItem collapsed={!sideMenu} href='/reseller' selected={menuState.activeMenu === MenuEnum.Representative} Icon={People} text={'امور نمایندگان'} />
+                <MenuItem collapsed={!sideMenu} href='/setting' selected={menuState.activeMenu === MenuEnum.Setting} Icon={SettingsRounded} text={'تنظیمات'} />
             </List>
         </>
     )
