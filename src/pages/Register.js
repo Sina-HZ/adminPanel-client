@@ -9,7 +9,6 @@ import { setUserAuthorization } from "../utils/axios";
 const useStyle = makeStyles(theme => ({
     root: {
         height: '100vh',
-        width: '100vw',
     },
     paper: {
         minWidth: 500,
@@ -46,9 +45,6 @@ const useStyle = makeStyles(theme => ({
         }
     },
     imageHolder: {
-        // display: 'flex',
-        // alignItems: 'center',
-        // justifyContent: 'center',
         backgroundColor: theme.palette.error.light,
         height: '100%'
     },
@@ -63,6 +59,7 @@ const useStyle = makeStyles(theme => ({
         }
     },
     imageCol: {
+        maxHeight: '100%',
         [theme.breakpoints.down('sm')]: {
             display: 'none'
         }
@@ -84,6 +81,17 @@ const useStyle = makeStyles(theme => ({
     logoMain: {
         display: 'flex',
         justifyContent: 'center'
+    },
+    logoType: {
+        fontWeight: 800,
+        fontSize: theme.typography.pxToRem(30),
+        letterSpacing: 4,
+    },
+    copyrightLink: {
+        textDecoration: 'none',
+        fontWeight: 500,
+        fontSize:  theme.typography.pxToRem(16),
+        color: theme.palette.primary.main,
     }
 }))
 
@@ -105,9 +113,7 @@ const Register = () => {
             if (result.data.user.token) {
                 const setAuth = await setUserAuthorization(result.data.user.token);
                 history.push('/');
-
             }
-            console.log('result: ', result.data)
         } catch (error) {
             console.log(error)
         }
@@ -127,7 +133,7 @@ const Register = () => {
             >
 
                 <Box className={classes.logoMain}>
-                    <img src={'/assets/images/logo.png'} alt='شرکت ارتباطات ثابت  پارسیان' />
+                    <Typography variant='body1' color='primary' className={classes.logoType}>NETWORK SOLUTION</Typography>
                 </Box>
                 <Box className={classes.formMain}>
                     <Box className={classes.formBox}>
@@ -157,7 +163,7 @@ const Register = () => {
                     </Button>
                 </Box>
                 <Box className={classes.copyright}>
-                    <Typography variant='body1'>&nbsp;</Typography>
+                    <Typography variant='body1'>Developed by <a className={classes.copyrightLink} href='https://www.linkedin.com/in/sina-hosseinzadeh/' target='_blank' rel='noopener noreferrer'>Sina Hoseinzadeh</a></Typography>
                 </Box>
             </Grid>
             <Grid
@@ -168,7 +174,7 @@ const Register = () => {
                 className={classes.imageCol}
             >
                 <Box className={classes.imageHolder}>
-                    <img src={'/assets/images/tower2.jpg'} className={classes.image} />
+                    <img src={'/assets/images/tower2.jpg'} className={classes.image} alt='radio tower bg' />
                 </Box>
             </Grid>
         </Grid>

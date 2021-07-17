@@ -1,19 +1,12 @@
-import React, { useContext, useState, Suspense, lazy } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-} from "react-router-dom";
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import {
   makeStyles,
   createStyles,
-  Theme,
   Typography,
   Avatar,
 } from '@material-ui/core';
-import { menuStore, MenuEnum } from '../states/MenuStateProvider';
+import { menuStore } from '../states/MenuStateProvider';
 import { observer } from 'mobx-react-lite';
 import { toJS } from 'mobx';
 import Account from '../states/Account';
@@ -51,6 +44,7 @@ const useOnMenuStyles = makeStyles((theme) => createStyles({
     padding: theme.spacing(0.7, 1.5, 0.3, 1.5),
     marginTop: theme.spacing(-1.5),
     zIndex: 1,
+    color: '#fff'
   },
   name: {
     textAlign: 'center',
@@ -82,7 +76,7 @@ export const AccountDetailOnMenu = observer(() => {
   return (
     <div className={classes.root}>
       <Avatar alt="account photo" className={clsx(classes.avatar, menuState.collapsed && classes.avatarCollapsed)} ></Avatar>
-      <Typography variant="body2" component="div" className={clsx(classes.id, classes.hidable, menuState.collapsed && classes.hide)}>{`FCP.${toJS(Account).role}`}</Typography>
+      <Typography variant="body2" component="div" className={clsx(classes.id, classes.hidable, menuState.collapsed && classes.hide)}>Developer</Typography>
       <Typography variant="subtitle1" component="div" className={clsx(classes.name, classes.hidable, menuState.collapsed && classes.hide)}>{toJS(Account).username}</Typography>
       <Typography variant="caption" component="div" className={clsx(classes.membership, classes.hidable, menuState.collapsed && classes.hide)}>{toJS(Account).email}</Typography>
     </div>

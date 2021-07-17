@@ -3,6 +3,10 @@ import { Box, IconButton, makeStyles, Paper, Typography, useTheme, Chip } from "
 import { Delete, Edit } from "@material-ui/icons";
 import ApiRoutes from "../utils/apiRoutes";
 import moment from 'moment-jalaali';
+import { sliderApi } from '../services/api';
+import useSnack from '../hooks/useSnack';
+import { observer } from 'mobx-react-lite';
+import SliderStore from '../states/Slider';
 
 
 const useStyle = makeStyles(theme => ({
@@ -61,14 +65,26 @@ const useStyle = makeStyles(theme => ({
         justifyContent: 'center'
     })
 }))
-const SliderCard = ({ sliderItem }) => {
+const SliderCard = observer(({ sliderItem }) => {
     const classes = useStyle({ status: sliderItem.status });
     const theme = useTheme();
+    const { defaultSnack } = useSnack();
+
+
+    const handleRemove = (id) => async (e) => {
+        try {
+            const result = await sliderApi.removeSlider(id);
+            SliderStore.removeItem(id)
+            defaultSnack('درخواست شما با موفقیت ثبت شد.', 'success')
+        } catch (error) {
+            defaultSnack('مشکلی پیش آمده است. دوباره سعی کنید.', 'error')
+        }
+    }
 
     return (
         <Paper elevation={0} className={classes.root}>
             <Box className={classes.imageWrap}>
-                <img src={ApiRoutes.baseUrl + '/file/' + sliderItem.image.id} className={classes.image} />
+                <img src={ApiRoutes.baseUrl + '/file/' + sliderItem.image.id} className={classes.image} alt={`${sliderItem.name} bg for company`} />
             </Box>
             <Box className={classes.infoWrap}>
                 <Typography variant='body1' style={{ fontWeight: 500 }}>{sliderItem.name}</Typography>
@@ -91,13 +107,13 @@ const SliderCard = ({ sliderItem }) => {
                     <IconButton color='primary'>
                         <Edit fontSize='small' />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={handleRemove(sliderItem.id)}>
                         <Delete fontSize='small' htmlColor={theme.palette.grey[700]} />
                     </IconButton>
                 </Box>
             </Box>
         </Paper >
     )
-}
+})
 
 export default SliderCard

@@ -8,9 +8,6 @@ const createTheme = (direction) => createMuiTheme({
       'Yekan Bakh',
     ].join(','),
   },
-  // shadows: {
-
-  // },
   shape: {
     borderRadius: 5,
   },
@@ -128,7 +125,7 @@ export const COLORS = {
   labelHover: '#666666',
   progressStart: '#00a03d',
   progressMiddle: '#FF9900',
-  progressFinished: '#FF2152', //#a0003d
+  progressFinished: '#FF2152',
   danger: '#FF2152',
   iconColor: '#ccc',
   dividerCutColor: '#e8e9eb',
@@ -139,7 +136,4 @@ export const COLORS = {
   successLight: '#ccecd8',
   errorLight: '#ffeeee',
   veryLightPink: '#cccccc'
-  // '#0098FF' blue
-  // '#FF9900' orange
-  // '#cccccc'
 }

@@ -28,7 +28,6 @@ const PanelRoutes = () => {
         try {
             const fetch = await authApi.getDetail();
             Account.setAccount(fetch.data);
-            console.log('fetch: ', fetch.data)
         } catch (error) {
             console.log('fetchError: ', error)
         }

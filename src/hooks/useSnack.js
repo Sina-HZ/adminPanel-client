@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSnackbar} from 'notistack';
-import { TransitionRight } from './SnackBarTransitions';
+import { TransitionRight } from '../components/SnackBarTransitions';
 
 const useSnack = () => {
     const { enqueueSnackbar } = useSnackbar();

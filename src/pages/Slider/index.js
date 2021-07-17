@@ -1,10 +1,11 @@
 import { Box, Button, createStyles, Divider, makeStyles, Paper, Typography } from "@material-ui/core"
 import { AddCircle, ClearAllOutlined } from "@material-ui/icons"
+import { observer } from "mobx-react-lite"
 import React, { useContext, useEffect, useState } from "react"
 import MainContentPaper from "../../components/MainContentPaper"
-import SliderCard from "../../components/SliderCard"
 import { sliderApi } from "../../services/api"
 import { MenuEnum, menuStore } from "../../states/MenuStateProvider"
+import SliderStore from "../../states/Slider"
 import AddSlider from "./AddSlider"
 import SliderList from "./SliderList"
 
@@ -51,12 +52,10 @@ const useStyles = makeStyles((theme) => createStyles({
 })
 )
 
-const Slider = () => {
+const Slider = observer(() => {
     const classes = useStyles()
     const { menuDispatch } = useContext(menuStore);
     const [isNewSlider, setIsNewSlider] = useState(false);
-    const [sliders, setSliders] = useState([]);
-
 
     useEffect(() => {
         getSliders()
@@ -73,11 +72,14 @@ const Slider = () => {
     const getSliders = async () => {
         try {
             const result = await sliderApi.list();
-            setSliders(result.data);
-            console.log(result.data);
+            SliderStore.setList(result.data);
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const sliderViewHandler = (status) => {
+        setIsNewSlider(status)
     }
 
     return (
@@ -100,12 +102,12 @@ const Slider = () => {
             </Box>
             <Divider />
 
-            {isNewSlider ? <AddSlider /> : <SliderList data={sliders} />}
+            {isNewSlider ? <AddSlider sliderViewHandler={sliderViewHandler} /> : <SliderList />}
 
 
 
         </MainContentPaper>
     )
-}
+})
 
 export default Slider

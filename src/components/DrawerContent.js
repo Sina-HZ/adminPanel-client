@@ -13,9 +13,6 @@ const useStyle = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingBottom: theme.spacing(5),
-        // padding: theme.spacing(1, 1),
-        // necessary for content to be below app bar
-        // ...theme.mixins.toolbar,
     },
     logo: {
         width: 99,
@@ -43,11 +40,9 @@ const DrawerContent = () => {
     return (
         <>
             <div className={classes.toolbar}>
-                {/* <ZarinWorldIcon className={classes.logo} /> */}
                 <div className={classes.spacer} />
                 <IconButton edge="end" onClick={toggleDrawerClose}>
                     <Menu />
-                    {/* {((sideMenu && theme.direction === 'rtl') || (!sideMenu && theme.direction !== 'rtl'))  ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
                 </IconButton>
             </div>
             <AccountDetailOnMenu />
@@ -56,6 +51,7 @@ const DrawerContent = () => {
                 <MenuItem collapsed={!sideMenu} href='/slider' selected={menuState.activeMenu === MenuEnum.Slider} Icon={AspectRatio} text={'تنظیمات اسلایدر'} />
                 <MenuItem collapsed={!sideMenu} href='/reseller' selected={menuState.activeMenu === MenuEnum.Representative} Icon={People} text={'امور نمایندگان'} />
                 <MenuItem collapsed={!sideMenu} href='/setting' selected={menuState.activeMenu === MenuEnum.Setting} Icon={SettingsRounded} text={'تنظیمات'} />
+                {/* add another menuItem here */}
             </List>
         </>
     )

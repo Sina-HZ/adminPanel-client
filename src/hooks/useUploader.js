@@ -11,18 +11,13 @@ const useUploader = () => {
     let fileHandler = async (file) => {
         try {
             const formData = new FormData();
-            // if (file.type === 'application/x-zip-compressed' || file.type === 'application/zip') {
-            //     setFileSrc('/assets/icons/attachFile.svg');
-            // } else {
-            // }
             const imageSrc = URL.createObjectURL(file);
             setFileSrc(imageSrc);
             formData.append('file', file);
-            // formData.append('fileId', v4())
             setStatus('uploading');
-            // const resultFile = await fileApi.sendFile(formData, (e) => {
-            //     setProgress(Math.round((100 * e.loaded) / e.total))
-            // });
+            const resultFile = await fileApi.sendFile(formData, (e) => {
+                setProgress(Math.round((100 * e.loaded) / e.total))
+            });
             setFileId('545454sdsdsw84d');
             setStatus('success');
         } catch (error) {
@@ -37,7 +32,6 @@ const useUploader = () => {
             setStatus(undefined);
             setFileSrc('');
         }
-        console.log('file: ',file)
     }, [file])
 
 

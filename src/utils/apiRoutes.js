@@ -3,12 +3,13 @@ const BaseUrl = process.env.REACT_APP_APIADDRESS;
 const ApiRoutes = {
     baseUrl: BaseUrl,
     auth: {
-        login: '/users/login',
-        getDetail: '/users/'
+        login: '/user/login',
+        getDetail: '/user/'
     },
     slider: {
         list: '/slider/list',
-        upload: '/slider/'
+        upload: '/slider/',
+        remove: '/slider/remove'
     },
     file: {
         upload: '/upload',
@@ -17,7 +18,7 @@ const ApiRoutes = {
     reseller: {
         list: '/reseller/',
         create: '/reseller/add',
-        getOne: '/reseller/#id'
+        getOne: '/reseller/#id',
     }
 }
 

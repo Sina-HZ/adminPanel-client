@@ -23,9 +23,6 @@ const useStyles = makeStyles(theme => ({
     infoBox: {
         padding: theme.spacing(2, 2),
         margin: theme.spacing(0, 3),
-        // broder: '2px solid',
-        // borderColor: theme.palette.primary.main,
-        // borderStyle: 'none none none solid'
     },
     maxWidthText: {
         width: 50
@@ -75,17 +72,17 @@ const headerStyle = makeStyles(theme => ({
     }
 }))
 
-const Header = ({companyName}) => {
+const Header = ({ companyName }) => {
     const classes = headerStyle();
 
     return (
         <>
             <Box className={classes.root}>
-                <img src='/assets/images/CircuitBoard.svg' width='100%' />
+                <img src='/assets/images/CircuitBoard.svg' width='100%' alt='header bg' />
             </Box>
             <Box className={classes.logoBoxWrapper}>
                 <Box className={classes.logoBox}>
-                    <img src='/assets/images/noImage.svg' width='40%' style={{opacity: 0.35}} />
+                    <img src='/assets/images/noImage.svg' width='40%' style={{ opacity: 0.35 }} alt='company logo bg' />
                 </Box>
                 <Typography variant='h6' className={classes.companyName}>{companyName}</Typography>
             </Box>
@@ -112,12 +109,14 @@ const Text = ({ title, preText, className }) => {
 
 
 
-const ShowReseller = observer(({match}) => {
+const ShowReseller = observer(({ match }) => {
     const classes = useStyles();
 
     useEffect(() => {
-        getReseller(match.params.id)
-    }, [])
+        if (match.params.id) {
+            getReseller(match.params.id)
+        }
+    }, [match.params.id])
 
     const getReseller = async (id) => {
         try {

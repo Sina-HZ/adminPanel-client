@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => createStyles({
         marginTop: theme.spacing(-20),
         width: 1126,
         justifyContent: 'center',
-        // background: theme.palette.primary.main,
         [theme.breakpoints.down('lg')]: {
             width: 699,
         },
@@ -79,7 +78,7 @@ const Representative = () => {
             </Box>
             <Divider />
             <Box mt={2}>
-                {addNew ? <AddNew /> : <TableList />}
+                {addNew ? <AddNew toggleView={togglePage} /> : <TableList />}
             </Box>
         </MainContentPaper>
     )

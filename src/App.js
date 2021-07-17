@@ -3,9 +3,8 @@ import { StylesProvider, createGenerateClassName, jssPreset } from '@material-ui
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
-import './App.css';
 import createTheme from './theme';
-import { CssBaseline, Typography } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import Scaffold from './Scaffold';
 

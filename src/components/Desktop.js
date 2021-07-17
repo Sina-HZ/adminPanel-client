@@ -1,10 +1,11 @@
 import { AppBar, createStyles, Drawer, makeStyles } from "@material-ui/core";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import clsx from 'clsx';
 import { menuStore } from "../states/MenuStateProvider";
 import { drawerWidth } from "../utils/generalConst";
 import DrawerContent from "./DrawerContent";
 import { useSwipeable } from "react-swipeable";
+import { setUserAuthorization } from "../utils/axios";
 
 
 
@@ -13,7 +14,6 @@ const useDesktopScaffoldStyles = makeStyles(theme => createStyles({
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     height: 245,
-    // backgroundImage: `linear-gradient(278deg, ${theme.palette.secondary.light} 0%, ${theme.palette.secondary.dark} 100%)`,
     backgroundColor: 'inherit',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -114,7 +114,7 @@ const useDesktopScaffoldStyles = makeStyles(theme => createStyles({
     marginLeft: drawerWidth,
     padding: 0,
     position: 'relative',
-    minHeight: 'calc(100vh - 245px)',
+    minHeight: 'calc(100vh - 270px)',
     zIndex: 1,
     
     [theme.breakpoints.down('sm')]: {
@@ -173,6 +173,11 @@ const DesktopScaffold = ({children}) => {
     swipHandlers.ref(el);
     myRef.current = el;
   }
+
+  useEffect(()=>{
+    const token = localStorage.getItem('Authorization');
+    setUserAuthorization(token);
+  },[])
 
   return (
     <>

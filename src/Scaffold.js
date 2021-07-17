@@ -10,7 +10,6 @@ const PrivateRoute = ({ Component, path, exact, redirectTo }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
 
-  // const condition = performValidationHere();
   useEffect(() => {
     const token = localStorage.getItem('Authorization');
     if (token) {
@@ -64,7 +63,6 @@ const Scaffold = () => {
               </MenuStateProvider>}
               redirectTo='/login'
             />
-            {/* <AppContent /> */}
           </Switch>
         </Suspense>
       </Box>

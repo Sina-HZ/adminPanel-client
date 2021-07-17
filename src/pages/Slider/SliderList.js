@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, Grid, useTheme } from "@material-ui/core"
 import SliderCard from "../../components/SliderCard"
+import { observer } from 'mobx-react-lite';
+import SliderStore from '../../states/Slider';
+import EmptyList from '../../components/EmptyList';
 
-const SliderList = ({ data }) => {
+const SliderList = observer(() => {
     const theme = useTheme()
 
     return (
@@ -12,7 +15,7 @@ const SliderList = ({ data }) => {
                 spacing={2}
                 style={{ margin: theme.spacing(2, 0),width: '100%' }}
             >
-                {data.map((item, index) => (
+                {SliderStore.list.map((item, index) => (
                     <Grid
                         key={item.id}
                         item
@@ -22,10 +25,12 @@ const SliderList = ({ data }) => {
                         <SliderCard sliderItem={item} />
                     </Grid>
                 ))}
-              
             </Grid>
+                {
+                    SliderStore.list.length === 0 && <EmptyList />
+                }
         </Box>
     )
-}
+})
 
 export default SliderList

@@ -21,7 +21,6 @@ const ResellerRoot = types.model({
 })
     .actions(self => ({
         setCurrent(data) {
-            console.log('inja: ', data)
             Object.assign(self.current, data)
         }
     }))

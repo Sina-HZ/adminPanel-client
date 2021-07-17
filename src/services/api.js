@@ -25,6 +25,9 @@ export const sliderApi = {
     },
     addSlider: async (data) => {
         return await axios.post(ApiRoutes.slider.upload, data)
+    },
+    removeSlider: async (id) => {
+        return await axios.post(ApiRoutes.slider.remove, { sliderId: id })
     }
 }
 

@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         padding: theme.spacing(1),
         borderRadius: theme.spacing(5),
-        // color: '#fff'
     })
 }))
 

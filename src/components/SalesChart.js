@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         [theme.breakpoints.down('sm')]: {
-            // width: 300,
             alignItems: 'unset',
             justifyContent: 'unset',
         }
@@ -66,7 +65,6 @@ const SalesChart = () => {
                 options={state.options}
                 series={state.series}
                 type="bar"
-                // width={500}
                 height={320}
                 className={classes.chart}
             />

@@ -167,7 +167,7 @@ const ProfileSetting = () => {
                     xs={12}
                 >
                     <Box className={classes.imageMian}>
-                        <img src='/assets/images/profileSetting.svg' width='80%' />
+                        <img src='/assets/images/profileSetting.svg' width='80%' alt='profile setting' />
                     </Box>
                 </Grid>}
             </Grid>

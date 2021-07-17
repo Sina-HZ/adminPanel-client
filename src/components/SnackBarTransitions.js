@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slide, SlideProps } from "@material-ui/core";
+import { Slide } from "@material-ui/core";
 
 
 export const TransitionRight = ({...props}) => {

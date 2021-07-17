@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { PanoramaOutlined } from '@material-ui/icons';
-import { Box, Button, FormControlLabel, makeStyles, Switch, TextField, Typography, Grid, useMediaQuery } from '@material-ui/core'
+import { Box, FormControlLabel, makeStyles, Switch, Typography, Grid } from '@material-ui/core'
 import { FileAttachTextField } from '../../components/CustomElements';
 import SubmitBTn from '../../components/SubmitBTn';
 import { fileApi, sliderApi } from '../../services/api';
-import useSnack from '../../components/useSnack';
+import useSnack from '../../hooks/useSnack';
+import SliderStore, { StatusEnum } from '../../states/Slider';
+import { observer } from 'mobx-react-lite';
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -32,7 +34,8 @@ const useStyle = makeStyles(theme => ({
 }))
 
 const recomendedSize = '1920x940';
-const AddSlider = () => {
+
+const AddSlider = observer(({sliderViewHandler}) => {
     const classes = useStyle();
     const { defaultSnack } = useSnack();
     const [attach, setAttach] = useState(null);
@@ -56,14 +59,6 @@ const AddSlider = () => {
         const checkSize = file.size / 1000000 < 2;
 
         if (checkType && checkSize) {
-            // try {
-            //     const formData = new FormData();
-            //     formData.append('file', file);
-            //     const resultFile = await fileApi.sendFile(formData);
-            //     setAttachment(resultFile.data);
-            // } catch (error) {
-            //     console.log('fileError: ', error.response.data)
-            // }
             setAttach(file);
             setImageSrc(file);
         } else {
@@ -93,13 +88,14 @@ const AddSlider = () => {
             const resultFile = await fileApi.uploadFile(formData);
             const payload = {
                 name: attach.name,
-                status: isActive,
+                status: isActive ? StatusEnum.active : StatusEnum.deactive,
                 image: resultFile.data.id,
             }
-            const upladSlider = await sliderApi.addSlider(payload);
-            defaultSnack('درخواست شما با موفقیت ثبت شد.', 'success')
+            const uploadSlider = await sliderApi.addSlider(payload);
+            SliderStore.addItem(uploadSlider.data)
+            defaultSnack('درخواست شما با موفقیت ثبت شد.', 'success');
+            sliderViewHandler(false)
         } catch (error) {
-            console.log('error: ', error)
             defaultSnack('مشکلی پیش آمده است. دوباره سعی کنید.', 'error')
         }
     }
@@ -159,7 +155,7 @@ const AddSlider = () => {
                     <Box className={classes.imageHolder}>
                         {
                             imageSrc
-                                ? <img src={URL.createObjectURL(imageSrc)} width='100%' />
+                                ? <img src={URL.createObjectURL(imageSrc)} width='100%' alt='selected file' />
                                 : <PanoramaOutlined color='disabled' style={{ fontSize: 90 }} />
                         }
 
@@ -172,5 +168,5 @@ const AddSlider = () => {
         </Grid>
     )
 }
-
+)
 export default AddSlider

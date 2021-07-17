@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => createStyles({
         marginTop: theme.spacing(-20),
         width: 1126,
         justifyContent: 'center',
-        // background: theme.palette.primary.main,
         [theme.breakpoints.down('lg')]: {
             width: 966,
         },
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => createStyles({
     balance: {
         padding: theme.spacing(0),
         margin: theme.spacing(0, 1.5, 2),
-        // height: 800,
         width: '100%',
         backgroundColor: 'inherit',
         [theme.breakpoints.down('sm')]: {

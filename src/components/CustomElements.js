@@ -37,7 +37,6 @@ export const FileAttachTextField = ({ accept, inputOnChange, InputProps, ...prop
                         </label>
                     </InputAdornment>,
                     style: { padding: theme.spacing(0, 0.7) },
-                    // readOnly: true
                     ...InputProps
                 }}
                 {...props}

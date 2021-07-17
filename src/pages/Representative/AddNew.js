@@ -1,7 +1,8 @@
 import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, makeStyles, MenuItem, Select, TextField, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { Add, AddCircleRounded, AddRounded } from '@material-ui/icons'
+import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
-import useSnack from '../../components/useSnack'
+import useSnack from '../../hooks/useSnack'
 import { resellerApi } from '../../services/api'
 import { Ostan, Shahr } from '../../utils/generalConst'
 
@@ -43,7 +44,7 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 
-const AddNew = () => {
+const AddNew = observer(({toggleView}) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -75,9 +76,9 @@ const AddNew = () => {
                 address: formValue.address,
             }
             const result = await resellerApi.add(payload);
-            defaultSnack('درخواست شما با موفقیت ثبت شد.', 'success')
+            defaultSnack('درخواست شما با موفقیت ثبت شد.', 'success');
+            toggleView()
         } catch (error) {
-            console.log('error: ', error)
             defaultSnack('مشکلی پیش آمده است. دوباره سعی کنید.', 'error')
 
         }
@@ -232,13 +233,13 @@ const AddNew = () => {
                     xs={12}
                 >
                     <Box className={classes.imageMian}>
-                        <img src={'/assets/images/resellerForm.svg'} width='80%' style={{ transform: 'scaleX(-1)' }} />
+                        <img src={'/assets/images/resellerForm.svg'} width='80%' style={{ transform: 'scaleX(-1)' }} alt='reseller illustrate' />
                     </Box>
                 </Grid>}
             </Grid>
 
         </>
     )
-}
+})
 
 export default AddNew

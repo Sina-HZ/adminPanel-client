@@ -48,7 +48,6 @@ const CircleSaleSate = () => {
                 options={state.options}
                 series={state.series}
                 type="pie"
-                // width={500}
                 height={320}
                 className={classes.chart}
             />
